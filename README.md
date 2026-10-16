@@ -33,7 +33,7 @@
   </tr>
   <tr>
     <td>🤖 <strong>Android</strong></td>
-    <td><a href="https://github.com/savaskarofficial/covert/releases/latest">APK (arm64)</a></td>
+    <td><a href="https://github.com/savaskarofficial/covert/releases/latest">APK (universal)</a></td>
     <td>Android 7.0+ (API 24)</td>
   </tr>
   <tr>
@@ -43,12 +43,12 @@
   </tr>
   <tr>
     <td>🐧 <strong>Linux</strong></td>
-    <td><a href="https://github.com/savaskarofficial/covert/releases/latest">AppImage / .deb</a></td>
-    <td>Ubuntu 20.04+ / Fedora 36+</td>
+    <td><a href="https://github.com/savaskarofficial/covert/releases/latest">.deb (amd64)</a></td>
+    <td>Debian 11+ / Ubuntu 20.04+ (x64)</td>
   </tr>
   <tr>
     <td>🍎 <strong>macOS</strong></td>
-    <td><a href="https://github.com/savaskarofficial/covert/releases/latest">DMG (Universal)</a></td>
+    <td>Coming soon</td>
     <td>macOS 12+</td>
   </tr>
 </table>
@@ -220,7 +220,7 @@ Base64 encoder/decoder, URL codec, MD5/SHA hash generator, JSON formatter, XML f
 | **VPN Mode (Android)** | ✅ | ✅ | ❌ | ❌ | ❌ |
 | **Toolbox** | 14 tools + JWT | 14 tools + AES | ❌ | ❌ | ❌ |
 | **Cross-platform** | 4 OS | 5 OS | 3 OS | 2 OS | 5 OS |
-| **Price** | **Free** | Free (limited) / $50/yr | $50 | $12/mo | Freemium |
+| **Price** | **Free / $6 mo / $55 yr** | Free (limited) / $50/yr | $50 | $12/mo | Freemium |
 
 ---
 
@@ -238,7 +238,7 @@ Base64 encoder/decoder, URL codec, MD5/SHA hash generator, JSON formatter, XML f
 ## Getting Started
 
 1. **Download** the latest release for your platform from [Releases](https://github.com/savaskarofficial/covert/releases/latest)
-2. **Install** — run the installer (Windows), mount DMG (macOS), or install APK (Android)
+2. **Install** — run the installer (Windows), install the .deb (Linux), or install the APK (Android)
 3. **Generate CA Certificate** — go to Certificates tab → Generate → Install to System
 4. **Start Proxy** — tap the Play button on the Traffic tab
 5. **Capture traffic** — browse normally, all HTTPS traffic is intercepted and displayed

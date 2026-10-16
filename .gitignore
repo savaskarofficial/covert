@@ -1,0 +1,11 @@
+*.apk
+*.aab
+*.exe
+*.deb
+*.AppImage
+*.jks
+*.keystore
+key.properties
+.env
+*.json.key
+release/
