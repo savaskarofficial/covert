@@ -1,265 +1,116 @@
 <p align="center">
-  <img src="assets/icon/covert_logo_1024.png" alt="Covert Logo" width="180" />
+  <img src="assets/icon/covert_logo_1024.png" alt="Covert" width="160" />
 </p>
 
-<h1 align="center">Covert</h1>
+# Covert
 
-<p align="center">
-  <strong>Advanced HTTP/HTTPS MITM Proxy, Network Debugger & API Client</strong><br>
-  <em>by <a href="https://undercoveritfirm.com">Undercover IT Firm</a> — Sharodshahi Al-Amin</em>
-</p>
-
-<p align="center">
-  <a href="https://github.com/savaskarofficial/covert/releases/latest"><img src="https://img.shields.io/github/v/release/savaskarofficial/covert?style=flat-square&color=00E5CC&label=Latest%20Release" alt="Release"></a>
-  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux%20%7C%20Android-blue?style=flat-square" alt="Platform">
-  <img src="https://img.shields.io/badge/Protocols-HTTP%2F1.1%20%7C%20HTTP%2F2%20%7C%20HTTP%2F3-00E5CC?style=flat-square" alt="Protocols">
-  <img src="https://img.shields.io/badge/Built%20With-Flutter%20%2B%20Kotlin%20%2B%20C++-0553B1?style=flat-square&logo=flutter&logoColor=white" alt="Built With">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Proprietary-red?style=flat-square" alt="License"></a>
-</p>
-
-<p align="center">
-  <a href="#download">Download</a> · <a href="#features">Features</a> · <a href="#architecture">Architecture</a> · <a href="#comparison">Comparison</a> · <a href="https://github.com/savaskarofficial/covert/issues">Report Issue</a>
-</p>
-
----
+Covert is an HTTP debugger, HTTPS interception proxy and API client from [Undercover IT Firm](https://undercoveritfirm.com). Use it to inspect requests, troubleshoot responses, test APIs and change traffic with rules.
 
 ## Download
 
-<table>
-  <tr>
-    <th>Platform</th>
-    <th>Download</th>
-    <th>Requirements</th>
-  </tr>
-  <tr>
-    <td>🤖 <strong>Android</strong></td>
-    <td><a href="https://github.com/savaskarofficial/covert/releases/latest">APK (universal)</a></td>
-    <td>Android 7.0+ (API 24)</td>
-  </tr>
-  <tr>
-    <td>🪟 <strong>Windows</strong></td>
-    <td><a href="https://github.com/savaskarofficial/covert/releases/latest">Installer (.exe)</a></td>
-    <td>Windows 10/11 (x64)</td>
-  </tr>
-  <tr>
-    <td>🐧 <strong>Linux</strong></td>
-    <td><a href="https://github.com/savaskarofficial/covert/releases/latest">.deb (amd64)</a></td>
-    <td>Debian 11+ / Ubuntu 20.04+ (x64)</td>
-  </tr>
-  <tr>
-    <td>🍎 <strong>macOS</strong></td>
-    <td>Coming soon</td>
-    <td>macOS 12+</td>
-  </tr>
-</table>
+**Latest Android release: 1.14.8, build 223.** Requires Android 7.0 or newer on an ARM64 or ARMv7 device.
 
-> **Google Play**: Coming soon
+[Download the Android APK](https://github.com/savaskarofficial/covert/releases/download/v1.14.8/Covert-1.14.8-android-universal.apk) | [Release notes](https://github.com/savaskarofficial/covert/releases/tag/v1.14.8)
 
----
+This release contains the Android APK. The previous desktop downloads remain available below.
 
-## Features
+| Platform | Available version | Download |
+| --- | --- | --- |
+| Android | 1.14.8 | [APK](https://github.com/savaskarofficial/covert/releases/download/v1.14.8/Covert-1.14.8-android-universal.apk) |
+| Windows x64 | 1.14.2 | [Installer](https://github.com/savaskarofficial/covert/releases/download/v1.14.2/Covert-1.14.2-windows-x64-setup.exe) |
+| Debian and Ubuntu amd64 | 1.14.2 | [Debian package](https://github.com/savaskarofficial/covert/releases/download/v1.14.2/covert_1.14.2_amd64.deb) |
+| Linux x86_64 | 1.14.2 | [AppImage](https://github.com/savaskarofficial/covert/releases/download/v1.14.2/Covert-1.14.2-linux-x86_64.AppImage) |
 
-### 🔒 Traffic Capture & MITM Proxy
+There is no macOS installer in the current releases.
 
-- **Full HTTPS interception** with automatic CA certificate generation and one-tap installation
-- **HTTP/2 frame-level MITM** — HPACK header decoding, stream multiplexing, not just byte piping
-- **HTTP/2 ↔ HTTP/1.1 translation** — transparent protocol bridging when client and server differ
-- **WebSocket** capture with real-time frame display, cross-chunk reassembly, and standalone WS client
-- **Protocol support:** HTTP/1.x, HTTP/2, HTTP/3 (QUIC), HTTPS (TLS 1.1–1.3), SOCKS4/4a/5
-- **Compression:** gzip, deflate, brotli (pure Dart), zstd (native FFI) — auto-detect by magic bytes
-- **VPN mode** on Android — captures all traffic without Wi-Fi proxy configuration
-- **System proxy** auto-configuration on Windows, macOS, Linux
-- **Per-app filtering** on Android — choose which apps route through the proxy
-- **SSL bypass** list — skip TLS inspection for pinned/sensitive hosts
+## What's new in 1.14.8
 
-### 🚀 API Client
+- Certificate generation no longer pauses unrelated network transfers.
+- HTTP/2 handles receive windows, upstream stream limits and slow receivers more reliably.
+- Turbo settings reach the running proxy and apply to new connections.
+- Unrelated response rewrite rules no longer hold video responses until the download finishes. Range responses continue to stream.
+- Traffic records keep the received body size and identify partial capture previews when displaying or saving them.
+- Earlier traffic search, API client, rules and WebSocket fixes are included.
 
-- **HTTP/1.1** via `dart:io HttpClient`
-- **HTTP/2** via native ALPN (`package:http2`)
-- **HTTP/3 (QUIC)** via Cronet on Android, H2 fallback on desktop
-- **Tabbed interface** with multiple concurrent requests
-- **Environment variables** with `{{variable}}` syntax — isolated per environment, global fallback
-- **Collections** with folder organization, import from Postman
-- **8 auth types:** Bearer, Basic, Digest (auto-retry), NTLM, API Key, OAuth 2.0 (browser flow), AWS SigV4
-- **Body types:** JSON, XML, Form Data, URL Encoded, Binary upload, GraphQL
-- **Pre-request & post-response scripting** (JavaScript DSL)
-- **Cookie manager** with auto-save across requests
+## Traffic capture
 
-### 💻 Code Snippets — 25 Languages
+Capture HTTP and HTTPS traffic, inspect headers and bodies, filter sessions and export requests for further testing.
 
-Generate ready-to-run code from any captured or composed request:
+- HTTP/1.1 and HTTP/2 interception, including translation between the two protocols.
+- Android VPN capture with per-app selection, plus manual proxy connections from other devices.
+- WebSocket frame inspection and a separate WebSocket client.
+- Response viewers for text, JSON, XML, images, binary data and other supported body types.
+- Session history, favorites, HAR import and export, and request replay.
+- Host bypass rules for connections that should pass through without TLS inspection.
 
-| Language | Libraries |
-|----------|-----------|
-| **Shell** | cURL |
-| **C** | libcurl |
-| **C#** | HttpClient, RestSharp |
-| **Dart** | Dio, http (IOClient) |
-| **Go** | net/http |
-| **Java** | OkHttp, HttpClient, Unirest |
-| **JavaScript** | Axios, Fetch, jQuery, XHR |
-| **Kotlin** | OkHttp |
-| **Node.js** | Axios, Fetch, Native http/https, Request |
-| **PHP** | cURL, Guzzle |
-| **Python** | Requests, http.client |
-| **Ruby** | Net::HTTP |
-| **Swift** | URLSession |
+HTTPS inspection requires the client to trust Covert's CA certificate. Some apps reject user-installed certificates or use certificate pinning. Bypassed connections remain encrypted and do not provide decrypted request bodies.
 
-**Snippet Converter:** Paste code in any of 13 source languages → extract request → convert to any of the 25 output languages.
+Streaming response captures retain up to 2 MiB as a preview. Covert records the full received byte count, but saving a partial preview does not save the complete larger response or video.
 
-### ⚙️ Rule Engine — 9 Categories
+## API client and collections
 
-| Rule | Description |
-|------|-------------|
-| **Rewrite** | Modify URL, request/response headers, request/response body (regex) |
-| **Gateway** | Block requests (custom status + body) or suspend |
-| **Mirror** | Duplicate traffic to a secondary host with full response capture |
-| **Map Local** | Serve local files as response (JSON, HTML, JS, XML) |
-| **Map Remote** | Redirect requests to different URL (regex capture groups) |
-| **Highlight** | Color-tag matching traffic for visual filtering |
-| **Network Condition** | Throttle bandwidth, add latency, simulate packet loss (presets: Offline, 2G, 3G, 4G) |
-| **Breakpoint** | Pause request and/or response for manual inspection and editing |
-| **DNS Override** | Route traffic to custom IP without modifying the request |
+Compose requests, organize them in collections and reuse values across environments.
 
-Each rule supports: 11 match fields × 8 operators, AND/OR logic, priority ordering, drag-to-reorder, enable/disable toggle, JSON import/export.
+- Request tabs, headers, query parameters, cookies and configurable timeouts.
+- JSON, XML, form data, URL-encoded, binary and GraphQL request bodies.
+- Basic, Bearer, API key, Digest, NTLM, OAuth 2.0 and AWS Signature authentication.
+- Environment variables using `{{variable}}` syntax, with collection import and export.
+- JavaScript hooks before requests and after responses.
+- Code snippet generation and conversion for supported languages and libraries.
+- Request chains, GraphQL tools, response comparison and load testing.
 
-### 🖥️ Mock Server
+The Android API client supports HTTP/3 through Cronet where available. The proxy does not decrypt HTTP/3 traffic; QUIC passthrough stays encrypted.
 
-- Shelf-based HTTP server on configurable port
-- Route matching with `:param` wildcards
-- Response body editor, custom headers, status codes
-- Artificial delay, priority ordering, CORS auto-headers
-- Request hit count tracking and logging
+## Rules and mock server
 
-### 🧰 Toolbox — 14 Tools
+Use matching conditions and priorities to control selected requests and responses.
 
-Base64 encoder/decoder, URL codec, MD5/SHA hash generator, JSON formatter, XML formatter, HEX viewer, Image viewer, JWT decoder, QR code generator, Regex tester, Timestamp converter, Response diff viewer, Random data generator, Color picker
+| Tool | Purpose |
+| --- | --- |
+| Rewrite | Change URLs, headers or bodies. |
+| Gateway | Block or suspend matching requests. |
+| Map Local | Serve a local file as a response. |
+| Map Remote | Route a request to another URL. |
+| Mirror | Send a copy of traffic to a second destination. |
+| Breakpoint | Pause a request or response for inspection and editing. |
+| DNS override | Route a host to a chosen IP address. |
+| Network conditions | Add latency or limit bandwidth for testing. |
+| Highlight | Mark matching sessions in the traffic list. |
 
-### 🤝 Collaboration
+The mock server provides configurable routes, status codes, headers, response bodies, delays and request logs. Export options are available for supported server formats.
 
-- QR code pairing for mobile ↔ desktop traffic forwarding
-- Real-time traffic sync between devices
+## Other tools
 
-### 📦 Additional Features
+Covert includes encoding and decoding tools, hash generation, JSON and XML formatting, JWT inspection, regular expression testing, timestamps, QR codes and response comparison. Collaboration tools can share traffic between paired devices. Backups preserve supported settings and saved data.
 
-- **Breakpoint editor** — edit request/response headers, body, URL, method before forwarding
-- **History** — all traffic persisted to SQLite, survives app restart
-- **Favorites** — bookmark requests, accessible even after clearing live traffic
-- **HAR import/export** — standard `.har` format with file association on Windows & Android
-- **13 editor themes** with customizable accent colors
-- **Syntax highlighting** for JSON, XML, HTML, CSS, JavaScript, YAML, Markdown
-- **AI traffic analysis** powered by Claude API
+Some features require an account or paid plan. Current pricing and plan details are shown in the app.
 
----
+## Get started on Android
 
-## Architecture
+1. Download the APK from the release page and open it to install. Android may ask you to allow installation from your browser or file manager.
+2. Open the Traffic tab and start capture. Accept Android's VPN permission when using VPN mode.
+3. For HTTPS inspection, open Certificates and follow the certificate installation instructions. The device or app being tested must trust that certificate.
+4. Open the app or website you want to inspect, then return to the traffic list to view its requests.
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                        Covert Engine                          │
-├──────────────────────────────────────────────────────────────┤
-│                                                               │
-│  Client ──TLS──▶ MITM Proxy (Dart Isolate)                   │
-│                       │                                       │
-│               ALPN negotiation                                │
-│               ┌───────┴───────┐                              │
-│               │               │                              │
-│            h2 ▼            h1.1 ▼                            │
-│   H2 Frame-Level        Transparent                          │
-│   MITM Handler          Byte Pipe                            │
-│    ↕ HPACK decode       + Http1Parser                        │
-│    ↕ Stream mux         + WS frame capture                   │
-│   H2↔H1 Translation    + Rule pipeline                      │
-│   Handler                                                     │
-│               │               │                              │
-│               ▼               ▼                              │
-│  SecureSocket [h2/h1.1] ──TLS──▶ Upstream Server             │
-│                                                               │
-├──────────────────────────────────────────────────────────────┤
-│  API Client:  H1 (dart:io)  │  H2 (package:http2)           │
-│               H3 (Cronet/QUIC on Android, H2 fallback)       │
-├──────────────────────────────────────────────────────────────┤
-│  Rule Engine: Rewrite │ Gateway │ Breakpoint │ Script        │
-│               Mirror  │ Map Local │ Map Remote │ Highlight   │
-│               Throttle │ DNS Override                         │
-├──────────────────────────────────────────────────────────────┤
-│  Storage:     SQLite (traffic + history + rules + settings)  │
-│               JSON (collections, environments, mock routes)   │
-│               Backup/restore with versioned JSON archives     │
-├──────────────────────────────────────────────────────────────┤
-│  Native:      zstd (FFI — C library, bundled per-platform)   │
-│               Cronet (Kotlin bridge, Android only)            │
-│               VPN (Kotlin TcpProxyStack, Android only)        │
-└──────────────────────────────────────────────────────────────┘
-```
+When connecting another device through the manual proxy, use the address and port shown by Covert. Install and trust the CA on that client if you need HTTPS inspection.
 
-**Tech Stack:** Flutter 3.22+ / Dart 3.4+, Kotlin (Android VPN + Cronet bridge), BLoC architecture, SQLite (raw sqlite3), GoRouter, PointyCastle (TLS/cert), BoringSSL (native)
+The APK uses the same application ID and signing certificate as the GitHub 1.14.2 release, with a higher build number. Install it over that version to update. Google Play installations may use a different signing key; back up saved data before switching installation channels.
 
-**Codebase:** 306 Dart files, 11 Kotlin files, 73,000+ lines of code
+After updating, restart capture and reconnect the client so new connections use the updated engine. Existing HTTP/2 connections keep their negotiated settings until they reconnect.
 
----
+## Report a problem
 
-## Comparison
+Open a [GitHub issue](https://github.com/savaskarofficial/covert/issues) with the Covert version, device and Android version, steps to reproduce, and the error message. For connection problems, include whether VPN capture, manual proxy or HTTP/2 interception was enabled.
 
-| Feature | Covert | Reqable | Charles | Fiddler | Postman |
-|---------|--------|---------|---------|---------|---------|
-| **HTTP/2 MITM** | ✅ Frame-level | ✅ Request-level | ❌ | ❌ | — |
-| **HTTP/3 API Client** | ✅ Cronet | ✅ | ❌ | ❌ | ❌ |
-| **Code Snippets** | 25 targets | 22 targets | ❌ | ❌ | ✅ |
-| **Snippet Converter** | ✅ 13→25 langs | ❌ | ❌ | ❌ | ❌ |
-| **Auth Types** | 8 (OAuth2, AWS, NTLM, Digest) | 3 | 1 | 1 | ✅ |
-| **WebSocket Client** | ✅ | ✅ | Capture only | Capture only | ❌ |
-| **Collections + Env** | ✅ | ✅ + Cloud | ❌ | ❌ | ✅ |
-| **Breakpoints** | ✅ Unlimited | ✅ (3 free) | ✅ | ✅ | ❌ |
-| **Mock Server** | ✅ | ❌ | ❌ | ❌ | ✅ |
-| **DNS Override** | ✅ (HTTPS CONNECT) | Host redirect | ✅ | ❌ | ❌ |
-| **Mirror** | ✅ + response capture | ❌ | ✅ | ❌ | ❌ |
-| **Protobuf Viewer** | ✅ | ❌ | ❌ | ❌ | ❌ |
-| **zstd Decompression** | ✅ Native FFI | ❌ | ❌ | ❌ | ❌ |
-| **Network Throttling** | ✅ 4 presets + manual | ✅ 9 presets | ✅ | ❌ | ❌ |
-| **VPN Mode (Android)** | ✅ | ✅ | ❌ | ❌ | ❌ |
-| **Toolbox** | 14 tools + JWT | 14 tools + AES | ❌ | ❌ | ❌ |
-| **Cross-platform** | 4 OS | 5 OS | 3 OS | 2 OS | 5 OS |
-| **Price** | **Free / $6 mo / $55 yr** | Free (limited) / $50/yr | $50 | $12/mo | Freemium |
+HAR files can contain cookies, authorization headers and private request data. Remove those values before attaching a capture to a public issue.
 
----
+## License and contact
 
-## Platform Support
+Covert is proprietary software. See [LICENSE](LICENSE) for its terms. This repository provides release downloads and product information.
 
-| Platform | Proxy | API Client | Notes |
-|----------|-------|------------|-------|
-| **Windows** | ✅ | ✅ | System proxy auto-config, Inno Setup installer |
-| **macOS** | ✅ | ✅ | Network extension for system proxy |
-| **Linux** | ✅ | ✅ | gsettings-based proxy configuration |
-| **Android** | ✅ | ✅ | VPN mode, per-app filtering, Cronet HTTP/3, PiP mode |
+- Website: [undercoveritfirm.com](https://undercoveritfirm.com)
+- Support: [support@undercoveritfirm.com](mailto:support@undercoveritfirm.com)
+- Telegram: [Undercover IT Firm](https://t.me/undercoveritfirm)
+- Developer: [Sharodshahi Al-Amin](https://t.me/savaskarofficial)
 
----
-
-## Getting Started
-
-1. **Download** the latest release for your platform from [Releases](https://github.com/savaskarofficial/covert/releases/latest)
-2. **Install** — run the installer (Windows), install the .deb (Linux), or install the APK (Android)
-3. **Generate CA Certificate** — go to Certificates tab → Generate → Install to System
-4. **Start Proxy** — tap the Play button on the Traffic tab
-5. **Capture traffic** — browse normally, all HTTPS traffic is intercepted and displayed
-
----
-
-## Contact
-
-| | |
-|---|---|
-| **Website** | [undercoveritfirm.com](https://undercoveritfirm.com) |
-| **Email** | [support@undercoveritfirm.com](mailto:support@undercoveritfirm.com) |
-| **Telegram** | [@undercoveritfirm](https://t.me/undercoveritfirm) |
-| **Developer** | [@savaskarofficial](https://t.me/savaskarofficial) |
-| **Issues** | [GitHub Issues](https://github.com/savaskarofficial/covert/issues) |
-
----
-
-<p align="center">
-  <strong>Covert</strong> — HTTP Debugger & API Client<br>
-  <em>Undercover IT Firm · Sharodshahi Al-Amin</em><br>
-  Built with precision in Dhaka 🇧🇩<br><br>
-  © 2024–2026 Undercover IT Firm. All rights reserved.
-</p>
+Copyright (c) 2024-2026 Undercover IT Firm. All rights reserved.
