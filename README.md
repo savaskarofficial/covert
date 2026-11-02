@@ -6,101 +6,77 @@
 
 Covert is an HTTP debugger, HTTPS interception proxy and API client from [Undercover IT Firm](https://undercoveritfirm.com). Use it to inspect requests, troubleshoot responses, test APIs and change traffic with rules.
 
-## Download
+[![Download latest release](https://img.shields.io/badge/Download-Latest%20release-00897B?style=for-the-badge)](https://github.com/savaskarofficial/covert/releases/latest)
 
-**Latest Android release: 1.14.8, build 223.** Requires Android 7.0 or newer on an ARM64 or ARMv7 device.
+Android APK, Linux AppImage and Debian packages are available through the release page. Check its notes for system requirements and installation steps. Windows installers remain available in earlier releases. A macOS installer is not currently published.
 
-[Download the Android APK](https://github.com/savaskarofficial/covert/releases/download/v1.14.8/Covert-1.14.8-android-universal.apk) | [Release notes](https://github.com/savaskarofficial/covert/releases/tag/v1.14.8)
+## Traffic capture and inspection
+Inspect requests, response headers and bodies, connection details and timing. Use the list or host view, quick filters and advanced search to find a session. Bookmark, comment on or highlight useful requests, then replay them, add them to a collection, compare them or export them as HAR, raw HTTP, cURL or code snippets.
 
-This release contains the Android APK. The previous desktop downloads remain available below.
+Covert supports HTTP/1.1 and HTTP/2 interception, including translation between those protocols. Android capture uses a local VPN service with per-app selection; desktop builds use the proxy path. DNS queries handled by the Android VPN resolver can also appear in Traffic. WebSocket sessions include a frame viewer, and the API client has a separate WebSocket client.
 
-| Platform | Available version | Download |
-| --- | --- | --- |
-| Android | 1.14.8 | [APK](https://github.com/savaskarofficial/covert/releases/download/v1.14.8/Covert-1.14.8-android-universal.apk) |
-| Windows x64 | 1.14.2 | [Installer](https://github.com/savaskarofficial/covert/releases/download/v1.14.2/Covert-1.14.2-windows-x64-setup.exe) |
-| Debian and Ubuntu amd64 | 1.14.2 | [Debian package](https://github.com/savaskarofficial/covert/releases/download/v1.14.2/covert_1.14.2_amd64.deb) |
-| Linux x86_64 | 1.14.2 | [AppImage](https://github.com/savaskarofficial/covert/releases/download/v1.14.2/Covert-1.14.2-linux-x86_64.AppImage) |
-
-There is no macOS installer in the current releases.
-
-## What's new in 1.14.8
-
-- Certificate generation no longer pauses unrelated network transfers.
-- HTTP/2 handles receive windows, upstream stream limits and slow receivers more reliably.
-- Turbo settings reach the running proxy and apply to new connections.
-- Unrelated response rewrite rules no longer hold video responses until the download finishes. Range responses continue to stream.
-- Traffic records keep the received body size and identify partial capture previews when displaying or saving them.
-- Earlier traffic search, API client, rules and WebSocket fixes are included.
-
-## Traffic capture
-
-Capture HTTP and HTTPS traffic, inspect headers and bodies, filter sessions and export requests for further testing.
-
-- HTTP/1.1 and HTTP/2 interception, including translation between the two protocols.
-- Android VPN capture with per-app selection, plus manual proxy connections from other devices.
-- WebSocket frame inspection and a separate WebSocket client.
-- Response viewers for text, JSON, XML, images, binary data and other supported body types.
-- Session history, favorites, HAR import and export, and request replay.
-- Host bypass rules for connections that should pass through without TLS inspection.
-
-HTTPS inspection requires the client to trust Covert's CA certificate. Some apps reject user-installed certificates or use certificate pinning. Bypassed connections remain encrypted and do not provide decrypted request bodies.
-
-Streaming response captures retain up to 2 MiB as a preview. Covert records the full received byte count, but saving a partial preview does not save the complete larger response or video.
+HTTPS inspection requires the client to trust the Covert CA. Pinned applications may reject that certificate; bypassed traffic remains encrypted. The proxy does not decrypt HTTP/3 traffic. Streaming response captures retain up to 2 MiB as a preview and their full received byte count, so saving a partial preview does not export a complete larger video or file.
 
 ## API client and collections
 
-Compose requests, organize them in collections and reuse values across environments.
+Create requests in separate tabs with custom methods, parameters, headers, cookies, authentication and connection settings. Send JSON, XML, form data, URL-encoded content, binary files or GraphQL requests. Inspect response bodies, cookies, timing and raw messages, including live Server-Sent Events.
 
-- Request tabs, headers, query parameters, cookies and configurable timeouts.
-- JSON, XML, form data, URL-encoded, binary and GraphQL request bodies.
-- Basic, Bearer, API key, Digest, NTLM, OAuth 2.0 and AWS Signature authentication.
-- Environment variables using `{{variable}}` syntax, with collection import and export.
-- JavaScript hooks before requests and after responses.
-- Code snippet generation and conversion for supported languages and libraries.
-- Request chains, GraphQL tools, response comparison and load testing.
+Supported authentication includes Basic, Bearer, API keys, Digest, NTLM, OAuth and AWS request signing. Environment and collection variables let saved requests switch between servers and credentials. Requests can use custom proxies, redirects and timeouts. The Android API client supports HTTP/3 through Cronet where available; other transports can fall back to HTTP/2 or HTTP/1.1.
 
-The Android API client supports HTTP/3 through Cronet where available. The proxy does not decrypt HTTP/3 traffic; QUIC passthrough stays encrypted.
+Organize saved requests in nested folders. Import Postman, Insomnia, Hoppscotch, OpenAPI/Swagger, HAR, raw HTTP and native Covert collections. Export collections, generate request code for supported libraries, convert existing snippets and export collection test runners for CI/CD.
 
-## Rules and mock server
+## Scripts and request chains
 
-Use matching conditions and priorities to control selected requests and responses.
+Use JavaScript before a request, after a response or in a standalone run. Reusable scripts can change request or response data, extract values, assert results and update environment variables. The visual script editor builds nested conditions, loops, assertions and data transformations without writing every line by hand. Scripts run in a bounded QuickJS environment with execution and memory limits; browser and Node.js host APIs are not provided.
 
-| Tool | Purpose |
-| --- | --- |
-| Rewrite | Change URLs, headers or bodies. |
-| Gateway | Block or suspend matching requests. |
-| Map Local | Serve a local file as a response. |
-| Map Remote | Route a request to another URL. |
-| Mirror | Send a copy of traffic to a second destination. |
-| Breakpoint | Pause a request or response for inspection and editing. |
-| DNS override | Route a host to a chosen IP address. |
-| Network conditions | Add latency or limit bandwidth for testing. |
-| Highlight | Mark matching sessions in the traffic list. |
+Request Chain runs saved or captured requests in order. Pass values between steps using response fields, headers, cookies and environment variables. Add delays, assertions, pre/post-step scripts and stop-on-error behavior, then save the chain for another run.
 
-The mock server provides configurable routes, status codes, headers, response bodies, delays and request logs. Export options are available for supported server formats.
+## GraphQL, gRPC and load testing
 
-## Other tools
+The GraphQL client sends queries and mutations with variables and custom headers, browses available schemas through introspection and keeps request history.
 
-Covert includes encoding and decoding tools, hash generation, JSON and XML formatting, JWT inspection, regular expression testing, timestamps, QR codes and response comparison. Collaboration tools can share traffic between paired devices. Backups preserve supported settings and saved data.
+The gRPC client loads .proto files, encodes and decodes protobuf, lists services through reflection and accepts request metadata. Native HTTP/2 supports unary and server-streaming calls plus queued client and bidirectional messages. gRPC-Web supports unary and buffered finite server streams; load .proto files for complete method and message schemas.
 
-Some features require an account or paid plan. Current pricing and plan details are shown in the app.
+Load Tester runs count, duration and target-rate tests with configurable concurrency, warm-up, ramp-up, spike and step-up patterns. Use response/error assertions, saved profiles and JSON reports to compare measured throughput, latency and failures. Actual rates depend on the device, network and server.
 
-## Get started on Android
+## Rules and API comparison
 
-1. Download the APK from the release page and open it to install. Android may ask you to allow installation from your browser or file manager.
-2. Open the Traffic tab and start capture. Accept Android's VPN permission when using VPN mode.
-3. For HTTPS inspection, open Certificates and follow the certificate installation instructions. The device or app being tested must trust that certificate.
-4. Open the app or website you want to inspect, then return to the traffic list to view its requests.
+Match traffic by request and response fields, combine conditions and set priorities. Rewrite URLs, headers or bodies; block, suspend or mirror requests; map responses to local files or remote URLs; override DNS destinations; add latency or bandwidth limits; set breakpoints; and highlight matching sessions.
 
-When connecting another device through the manual proxy, use the address and port shown by Covert. Install and trust the CA on that client if you need HTTPS inspection.
+API Diff compares requests from captured Traffic, the API client and Collections. It can compare URLs, authentication, headers, bodies and connection options. Response comparisons are available when the selected source includes a response snapshot.
 
-The APK uses the same application ID and signing certificate as the GitHub 1.14.2 release, with a higher build number. Install it over that version to update. Google Play installations may use a different signing key; back up saved data before switching installation channels.
+## Covert Server
 
-After updating, restart capture and reconnect the client so new connections use the updated engine. Existing HTTP/2 connections keep their negotiated settings until they reconnect.
+Build mock API projects with configurable routes, response bodies, headers, status codes, CORS settings and delays. Dynamic CRUD routes provide editable data with filtering, sorting and pagination. Mock authentication, WebSocket routes, Server-Sent Events and fault simulation help test client behavior.
+
+Projects keep their routes, data, sessions and uploaded files across restarts. Inspect requests in the server log or export a Node.js/Express project for the supported route and export modes. Mock authentication is intended for testing, and exported deployments require their own reviewed configuration.
+
+## Toolbox and certificate tools
+
+The Toolbox includes Base64 and URL codecs, hashes, JSON and XML formatting, HEX and image viewers, text comparison, regular expressions, timestamps, random data, QR codes and color conversion. JWT tools can inspect and edit claims, generate tokens and sign or verify supported algorithms. Smart Auth Inspector identifies common token and authentication formats.
+
+Certificate tools generate and export the Covert CA, show certificate details and explain platform trust setup. The SSL pinning helper provides configuration and common hook templates for authorized app testing; support depends on the client implementation.
+
+## Collaboration, saved work and settings
+
+Share live Traffic between paired devices on the local network, using QR pairing or a session key. The optional report server serves a token-protected traffic viewer. LAN access controls do not make these connections TLS-encrypted, so use a trusted network.
+
+History, favorites and saved projects preserve work between sessions. Local backup and restore covers supported app-managed data. Where the account plan enables Cloud Sync, supported collections, environments, rules, scripts, chains, mock projects, favorites and settings can sync between devices. Cloud Sync does not replace a complete local traffic backup.
+
+Settings control the proxy port, upstream proxy, automatic capture, HTTP/2 interception, Turbo mode, cache-related response headers, per-app filters, host access rules, capture limits and history retention. Appearance, supported app locks, keyboard shortcuts and debug logs are also available. Account controls manage sign-in, device sessions and plan access. Some features depend on the platform or account plan.
+
+## Get started
+
+1. Install the package for your platform. On Android, open the APK and allow installation from your browser or file manager if prompted. On Linux, make the AppImage executable or install the Debian package with your package manager.
+2. Start capture from the Traffic tab. Use Android VPN mode or configure the client to connect to the proxy address and port shown by Covert.
+3. For HTTPS inspection, generate the Covert CA in Certificates and follow the trust setup instructions on the client being tested.
+4. Open the app or website, then return to Traffic to inspect its requests and responses.
+
+After changing interception or Turbo settings, reconnect the client to apply connection-level settings. Detailed controls, examples and platform notes are available in Covert's built-in Documentation.
 
 ## Report a problem
 
-Open a [GitHub issue](https://github.com/savaskarofficial/covert/issues) with the Covert version, device and Android version, steps to reproduce, and the error message. For connection problems, include whether VPN capture, manual proxy or HTTP/2 interception was enabled.
+Open a [GitHub issue](https://github.com/savaskarofficial/covert/issues) with the Covert version, operating system, steps to reproduce and the error message. For connection problems, include whether VPN capture, manual proxy or HTTP/2 interception was enabled.
 
 HAR files can contain cookies, authorization headers and private request data. Remove those values before attaching a capture to a public issue.
 
