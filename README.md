@@ -8,7 +8,7 @@ Covert is an HTTP debugger, HTTPS interception proxy and API client from [Underc
 
 [![Download latest release](https://img.shields.io/badge/Download-Latest%20release-00897B?style=for-the-badge)](https://github.com/savaskarofficial/covert/releases/latest)
 
-Android APK, Linux AppImage and Debian packages are available through the release page. Check its notes for system requirements and installation steps. Windows installers remain available in earlier releases. A macOS installer is not currently published.
+Covert is available for Android, Linux and Windows. Open the latest release for available downloads, system requirements and installation steps.
 
 ## Traffic capture and inspection
 Inspect requests, response headers and bodies, connection details and timing. Use the list or host view, quick filters and advanced search to find a session. Bookmark, comment on or highlight useful requests, then replay them, add them to a collection, compare them or export them as HAR, raw HTTP, cURL or code snippets.
