@@ -17,6 +17,8 @@ Covert supports HTTP/1.1 and HTTP/2 interception, including translation between 
 
 HTTPS inspection requires the client to trust the Covert CA. Pinned applications may reject that certificate; bypassed traffic remains encrypted. The proxy does not decrypt HTTP/3 traffic. Streaming response captures retain up to 2 MiB as a preview and their full received byte count, so saving a partial preview does not export a complete larger video or file.
 
+Encrypted body inspection supports compatible `X-Sec-Key` metadata and a manual key preview. Covert validates the key, IV, authentication tag and AAD for supported ciphers while keeping captured bytes and headers unchanged.
+
 ## API client and collections
 
 Create requests in separate tabs with custom methods, parameters, headers, cookies, authentication and connection settings. Send JSON, XML, form data, URL-encoded content, binary files or GraphQL requests. Inspect response bodies, cookies, timing and raw messages, including live Server-Sent Events.
@@ -59,7 +61,7 @@ Certificate tools generate and export the Covert CA, show certificate details an
 
 ## Collaboration, saved work and settings
 
-Share live Traffic between paired devices on the local network, using QR pairing or a session key. The optional report server serves a token-protected traffic viewer. LAN access controls do not make these connections TLS-encrypted, so use a trusted network.
+Share live Traffic between paired devices on the local network with QR pairing or a session key and certificate fingerprint. Collaboration uses a pinned WSS connection. The optional report server serves a token-protected HTTP traffic viewer; use that viewer on a trusted network.
 
 History, favorites and saved projects preserve work between sessions. Local backup and restore covers supported app-managed data. Where the account plan enables Cloud Sync, supported collections, environments, rules, scripts, chains, mock projects, favorites and settings can sync between devices. Cloud Sync does not replace a complete local traffic backup.
 
